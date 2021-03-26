@@ -1,8 +1,5 @@
 package com.zipcodewilmington.singlylinkedlist;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 /**
  * Created by leon on 1/10/18.
  */
@@ -95,8 +92,15 @@ public class SinglyLinkedList<T> {
         return this.size();
     }
 
-    public void get(int index) {
-
+    public Node get(int index) {
+        Node current = head;
+        for (int i = 0; i <= index; i++) {
+            current = current.next;
+            if (i == index) {
+                return current;
+            }
+        }
+        return null;
     }
 
     public void copy(){
