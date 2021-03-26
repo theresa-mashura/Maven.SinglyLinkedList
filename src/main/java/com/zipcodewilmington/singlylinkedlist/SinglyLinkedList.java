@@ -6,22 +6,28 @@ import java.util.LinkedList;
 /**
  * Created by leon on 1/10/18.
  */
-public class SinglyLinkedList {
+public class SinglyLinkedList<T> {
 
-    static class Node {
-        int data;
-        Node next;
+    private Node head;
+    private Node tail;
+    private Integer size;
 
-        public Node(int d) {
+    public SinglyLinkedList() {
+        this.size = 0;
+    }
+
+
+    private class Node {
+        private T data;
+        private Node next;
+
+        public Node(T d) {
             data = d;
             next = null;
         }
     }
 
-    public Node head;
-    public Node tail;
-
-    public void add(int data) {
+    public void add(T data) {
         Node newNode = new Node(data);
 
         // empty list then make newNode the head & the tail
@@ -33,10 +39,12 @@ public class SinglyLinkedList {
             tail.next = newNode;    // the tail has to point to newNode (since it's not the tail anymore!)
             tail = newNode;         // newNode is added to the end - so it's now the tail!
         }
+
+        this.size++;
     }
 
     public void remove(int index) {
-        Node current = head;
+        Node temp = head;
         Node newNext;
 
         // deleting the head
@@ -47,25 +55,47 @@ public class SinglyLinkedList {
 
         // deleting any other node
         for (int i = 0; i < index - 1; i++) {
-            current = current.next;         // temp now is the item before the one to be deleted
-            newNext = current.next.next;    // get new next item after deletion
-            current.next = newNext;         // link temp to the item after the one to be deleted
+            temp = temp.next;               // temp now is the item before the one to be deleted
+            newNext = temp.next.next;       // get new next item after deletion
+            temp.next = newNext;            // link temp to the item after the one to be deleted
         }
+
+        this.size--;
     }
 
-    public void contains() {
+    public Boolean contains(T elementToFind) {
 
+        Node current = head;
+        Integer index = 0;
+        while (current != null) {
+            if (current.data.equals(elementToFind)) {
+                return true;
+            }
+            current = current.next;
+            index++;
+        }
+        return false;
     }
 
-    public void find() {
+    public Integer find(T elementToFind) {
 
+        Node current = head;
+        Integer index = 0;
+        while (current != null) {
+            if (current.data.equals(elementToFind)) {
+                return index;
+            }
+            current = current.next;
+            index++;
+        }
+        return -1;
     }
 
-    public void size(){
-
+    public Integer size(){
+        return this.size();
     }
 
-    public void get() {
+    public void get(int index) {
 
     }
 
