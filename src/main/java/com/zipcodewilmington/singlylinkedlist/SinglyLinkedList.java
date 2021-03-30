@@ -3,16 +3,16 @@ package com.zipcodewilmington.singlylinkedlist;
 /**
  * Created by leon on 1/10/18.
  */
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T extends Comparable<T>>  {
 
     private Node head;
     private Node tail;
     private Integer size;
 
     public SinglyLinkedList() {
+
         this.size = 0;
     }
-
 
     private class Node {
         private T data;
@@ -89,26 +89,47 @@ public class SinglyLinkedList<T> {
     }
 
     public Integer size(){
-        return this.size();
+
+        return this.size;
     }
 
-    public Node get(int index) {
+    public T get(int index) {
         Node current = head;
         for (int i = 0; i <= index; i++) {
-            current = current.next;
             if (i == index) {
-                return current;
+                return current.data;
             }
+            current = current.next;
         }
         return null;
     }
 
-    public void copy(){
+    public SinglyLinkedList<T> copy(){
+        SinglyLinkedList<T> copyOfList = new SinglyLinkedList<T>();
 
+        Node curr = head;
+        for (int i = 0; i <= this.size; i++) {
+            copyOfList.add(curr.data);
+            curr = head.next;
+        }
+
+        return copyOfList;
     }
 
-    public void sort(){
-
+    public void sort() {
+        T temp = null;
+        for (int i = 0; i <= this.size; i++) {
+            Node prev = head;
+            Node curr = head.next;
+            while (curr != null) {
+                if (prev.data.compareTo(curr.data) > 0) {
+                    temp = prev.data;
+                    prev.data = curr.data;
+                    curr.data = temp;
+                }
+                prev = prev.next;
+                curr = curr.next;
+            }
+        }
     }
-
 }
